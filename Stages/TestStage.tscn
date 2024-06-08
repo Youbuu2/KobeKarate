@@ -1,0 +1,109 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Stages/Smashville/1.png" type="Texture" id=1]
+[ext_resource path="res://Characters/KobeSprites/Koby.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Stages/Smashville/Stage2.png" type="Texture" id=3]
+[ext_resource path="res://Stages/Smashville/Stage1.png" type="Texture" id=4]
+[ext_resource path="res://Stages/Smashville/Background.png" type="Texture" id=5]
+[ext_resource path="res://Stages/StageCamera.gd" type="Script" id=6]
+[ext_resource path="res://Stages/2playerFollowerCamera.gd" type="Script" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 481.5, 20.5 )
+
+[node name="TestStage" type="Node2D"]
+
+[node name="ParallaxLayer" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxLayer"]
+motion_scale = Vector2( 0.5, 0.5 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxLayer/ParallaxLayer"]
+position = Vector2( 6, -83 )
+texture = ExtResource( 5 )
+
+[node name="Template" type="Sprite" parent="."]
+visible = false
+position = Vector2( 5, 31 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+
+[node name="floor" type="StaticBody2D" parent="."]
+position = Vector2( -950, -515 )
+collision_layer = 2
+
+[node name="floor" type="CollisionShape2D" parent="floor"]
+position = Vector2( 960.5, 769.5 )
+scale = Vector2( 2, 1 )
+shape = SubResource( 1 )
+
+[node name="Label" type="Label" parent="floor"]
+margin_left = 793.0
+margin_top = 762.0
+margin_right = 833.0
+margin_bottom = 776.0
+text = "floor"
+
+[node name="wall" type="StaticBody2D" parent="."]
+position = Vector2( -950, -515 )
+collision_layer = 2
+
+[node name="wall" type="CollisionPolygon2D" parent="wall"]
+position = Vector2( -961, 0 )
+scale = Vector2( 2, 1 )
+polygon = PoolVector2Array( 478, 790, 533, 845, 619, 886, 1300, 885, 1384, 845, 1443, 790 )
+
+[node name="Label" type="Label" parent="wall"]
+margin_left = 794.0
+margin_top = 798.0
+margin_right = 1023.0
+margin_bottom = 866.0
+text = "Wall"
+
+[node name="2playerFollowerCamera" type="Camera2D" parent="."]
+position = Vector2( 1, -2 )
+current = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_left = 0.0
+drag_margin_right = 0.0
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = ExtResource( 7 )
+
+[node name="KOBE" parent="2playerFollowerCamera" instance=ExtResource( 2 )]
+position = Vector2( -601, 144 )
+z_index = 1
+id = 1
+
+[node name="KOBE2" parent="2playerFollowerCamera" instance=ExtResource( 2 )]
+modulate = Color( 0.172549, 1, 0, 1 )
+position = Vector2( 670, 144 )
+z_index = 1
+id = 2
+
+[node name="Sprite1" type="Sprite" parent="."]
+position = Vector2( 32, 288 )
+scale = Vector2( 4, 2.167 )
+texture = ExtResource( 4 )
+
+[node name="Sprite2" type="Sprite" parent="."]
+position = Vector2( 33, 303 )
+scale = Vector2( 4, 2.167 )
+z_index = 3
+texture = ExtResource( 3 )
+
+[node name="1player FollowerCamera" type="Camera2D" parent="."]
+visible = false
+position = Vector2( 12, 7 )
+limit_left = -1140
+limit_top = -710
+limit_right = 1150
+limit_bottom = 550
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_left = 0.0
+drag_margin_right = 0.0
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = ExtResource( 6 )
